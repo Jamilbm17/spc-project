@@ -1,0 +1,30 @@
+meta {
+  name: Registro Estudiante
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/auth/student/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "firstName": "María",
+    "lastName": "García",
+    "email": "maria.garcia@demo.com",
+    "password": "Student123!",
+    "institutionName": "Instituto Nacional",
+    "dni": "0801199900001",
+    "phone": "9999-0001",
+    "grade": "11vo"
+  }
+}
+
+docs {
+  Registra un nuevo estudiante en el sistema.
+  Si la institución indicada en `institutionName` no existe, se crea automáticamente.
+  El campo `dni` y `phone` son opcionales.
+}

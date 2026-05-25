@@ -1,0 +1,30 @@
+meta {
+  name: Crear Tema
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/topics
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+body:json {
+  {
+    "name": "Ciberseguridad y redes sociales",
+    "description": "Uso responsable de internet y redes sociales para jóvenes.",
+    "active": true
+  }
+}
+
+script:post-response {
+  const data = res.getBody();
+  if (data.id) {
+    bru.setEnvVar("topicId", data.id);
+  }
+}

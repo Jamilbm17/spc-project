@@ -1,0 +1,23 @@
+meta {
+  name: Actualizar Institución
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/institutions/{{institutionId}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+body:json {
+  {
+    "contactName": "Prof. Juan Pérez",
+    "contactPhone": "9977-5544",
+    "active": true
+  }
+}

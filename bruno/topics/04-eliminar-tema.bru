@@ -1,0 +1,15 @@
+meta {
+  name: Eliminar Tema
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/topics/{{topicId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}

@@ -1,0 +1,44 @@
+meta {
+  name: Crear Actividad
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/activities
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+body:json {
+  {
+    "title": "Taller de Prevención de Drogas",
+    "description": "Sesión informativa sobre prevención del consumo de drogas en jóvenes.",
+    "date": "2026-06-15",
+    "startTime": "08:00",
+    "endTime": "10:00",
+    "location": "Aula Magna",
+    "status": "SCHEDULED",
+    "expectedParticipants": 50,
+    "institutionId": 1,
+    "topicId": 1
+  }
+}
+
+script:post-response {
+  const data = res.getBody();
+  if (data.id) {
+    bru.setEnvVar("activityId", data.id);
+  }
+}
+
+docs {
+  Crea una nueva actividad. El ID creado se guarda en `activityId`.
+
+  Valores válidos para `status`: SCHEDULED, IN_PROGRESS, COMPLETED, CANCELLED
+  Los campos `institutionId` y `topicId` son opcionales.
+}

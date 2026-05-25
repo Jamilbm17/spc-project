@@ -1,0 +1,20 @@
+meta {
+  name: Participantes de Actividad (Admin)
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/enrollments/activity/{{activityId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+docs {
+  Retorna todos los estudiantes inscritos en una actividad específica.
+  Requiere token de administrador. Usa la variable `activityId`.
+}

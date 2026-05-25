@@ -1,0 +1,15 @@
+meta {
+  name: Eliminar Institución
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/institutions/{{institutionId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Eliminar Participante
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/participants/{{participantId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}

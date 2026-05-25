@@ -1,0 +1,28 @@
+meta {
+  name: Actualizar Actividad
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/activities/{{activityId}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+body:json {
+  {
+    "title": "Taller de Prevención Actualizado",
+    "status": "IN_PROGRESS",
+    "expectedParticipants": 60
+  }
+}
+
+docs {
+  Actualiza una actividad existente. Solo se envían los campos a modificar.
+  Usa la variable `activityId` del entorno.
+}

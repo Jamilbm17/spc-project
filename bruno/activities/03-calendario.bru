@@ -1,0 +1,25 @@
+meta {
+  name: Calendario de Actividades
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/activities/calendar
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+params:query {
+  year: 2026
+  month: 5
+}
+
+docs {
+  Retorna las actividades del mes indicado para mostrar en el calendario.
+  Parámetros: `year` (número) y `month` (1-12).
+}

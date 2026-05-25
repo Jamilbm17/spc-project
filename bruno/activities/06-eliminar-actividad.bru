@@ -1,0 +1,19 @@
+meta {
+  name: Eliminar Actividad
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{baseUrl}}/activities/{{activityId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+docs {
+  Elimina una actividad por ID. Usa la variable `activityId` del entorno.
+}

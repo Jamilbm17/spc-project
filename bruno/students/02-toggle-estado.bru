@@ -1,0 +1,20 @@
+meta {
+  name: Toggle Estado Estudiante
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/students/{{studentId}}/toggle
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+docs {
+  Activa o desactiva la cuenta de un estudiante.
+  Si estaba activo lo desactiva, y viceversa. Usa la variable `studentId`.
+}

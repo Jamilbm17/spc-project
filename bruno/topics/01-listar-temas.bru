@@ -1,0 +1,15 @@
+meta {
+  name: Listar Temas
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/topics
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}

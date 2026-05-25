@@ -1,0 +1,34 @@
+meta {
+  name: Login Estudiante
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/auth/student/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "carlos.mendoza@demo.com",
+    "password": "Student123!"
+  }
+}
+
+script:post-response {
+  const data = res.getBody();
+  if (data.accessToken) {
+    bru.setEnvVar("studentToken", data.accessToken);
+  }
+}
+
+docs {
+  Inicia sesión como estudiante.
+  El token se guarda automáticamente en la variable `studentToken`.
+
+  Credenciales de prueba (seed):
+  - email: carlos.mendoza@demo.com
+  - password: Student123!
+}

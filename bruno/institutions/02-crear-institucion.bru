@@ -1,0 +1,39 @@
+meta {
+  name: Crear Institución
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/institutions
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+body:json {
+  {
+    "name": "Centro Básico Nueva Esperanza",
+    "type": "SCHOOL",
+    "address": "Barrio El Centro, Tegucigalpa",
+    "city": "Tegucigalpa",
+    "contactName": "Prof. Ana Martínez",
+    "contactPhone": "9988-7766",
+    "active": true
+  }
+}
+
+script:post-response {
+  const data = res.getBody();
+  if (data.id) {
+    bru.setEnvVar("institutionId", data.id);
+  }
+}
+
+docs {
+  Crea una institución. El ID creado se guarda en `institutionId`.
+  Valores válidos para `type`: SCHOOL, COMMUNITY, OTHER
+}

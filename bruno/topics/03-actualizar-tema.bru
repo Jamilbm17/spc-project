@@ -1,0 +1,22 @@
+meta {
+  name: Actualizar Tema
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/topics/{{topicId}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+body:json {
+  {
+    "description": "Descripción actualizada del tema.",
+    "active": true
+  }
+}

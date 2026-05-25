@@ -1,0 +1,15 @@
+meta {
+  name: Listar Participantes
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/participants
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}

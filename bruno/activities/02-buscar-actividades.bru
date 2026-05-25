@@ -1,0 +1,23 @@
+meta {
+  name: Buscar Actividades
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/activities
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+params:query {
+  query: prevención
+}
+
+docs {
+  Busca actividades por título, descripción o institución usando el parámetro `query`.
+}

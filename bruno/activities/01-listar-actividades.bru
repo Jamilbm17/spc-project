@@ -1,0 +1,19 @@
+meta {
+  name: Listar Actividades
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/activities
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+docs {
+  Retorna todas las actividades. Requiere token de administrador.
+}

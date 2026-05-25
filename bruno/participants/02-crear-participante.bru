@@ -1,0 +1,38 @@
+meta {
+  name: Crear Participante
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/participants
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}
+
+body:json {
+  {
+    "name": "Luis Fernando Ramos",
+    "documentNumber": "0801200100001",
+    "phone": "9900-1122",
+    "email": "luis.ramos@ejemplo.com",
+    "age": 28,
+    "institutionId": 1
+  }
+}
+
+script:post-response {
+  const data = res.getBody();
+  if (data.id) {
+    bru.setEnvVar("participantId", data.id);
+  }
+}
+
+docs {
+  Registra un participante externo (no estudiante) para una actividad.
+  Todos los campos excepto `name` son opcionales.
+}

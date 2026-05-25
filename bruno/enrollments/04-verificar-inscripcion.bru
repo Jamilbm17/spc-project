@@ -1,0 +1,20 @@
+meta {
+  name: Verificar Inscripción
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/enrollments/check/{{activityId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{studentToken}}
+}
+
+docs {
+  Verifica si el estudiante autenticado ya está inscrito en la actividad indicada.
+  Retorna `{ enrolled: true/false }`.
+}
