@@ -1,0 +1,3 @@
+allowBuilds:
+  '@nestjs/core': true
+  sqlite3: true
