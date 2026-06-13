@@ -5,6 +5,7 @@ import {
     Users,
     BookOpen,
     GraduationCap,
+    LayoutDashboard,
     type LucideIcon,
 } from 'lucide-react'
 import { PATHS } from './paths'
@@ -14,6 +15,11 @@ export const MENU_LINKS: Array<{
     url: string
     icon: LucideIcon
 }> = [
+    {
+        title: 'Cursos',
+        url: PATHS.COURSES.INDEX,
+        icon: LayoutDashboard,
+    },
     {
         title: 'Actividades',
         url: PATHS.ACTIVITIES.INDEX,

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, SelectQueryBuilder } from 'typeorm';
 import { Student } from './entities/student.entity';
 
 @Injectable()
@@ -10,8 +10,8 @@ export class StudentsService {
         private readonly studentRepository: Repository<Student>,
     ) { }
 
-    async findAll(query?: string): Promise<Omit<Student, 'password'>[]> {
-        const qb = this.studentRepository
+    private baseQuery(): SelectQueryBuilder<Student> {
+        return this.studentRepository
             .createQueryBuilder('student')
             .select([
                 'student.id',
@@ -25,6 +25,10 @@ export class StudentsService {
                 'student.isActive',
                 'student.createdAt',
             ]);
+    }
+
+    async findAll(query?: string): Promise<Omit<Student, 'password'>[]> {
+        const qb = this.baseQuery();
 
         if (query) {
             qb.where(
@@ -37,20 +41,7 @@ export class StudentsService {
     }
 
     async findOne(id: number): Promise<Omit<Student, 'password'>> {
-        const student = await this.studentRepository
-            .createQueryBuilder('student')
-            .select([
-                'student.id',
-                'student.firstName',
-                'student.lastName',
-                'student.email',
-                'student.dni',
-                'student.institutionName',
-                'student.phone',
-                'student.grade',
-                'student.isActive',
-                'student.createdAt',
-            ])
+        const student = await this.baseQuery()
             .where('student.id = :id', { id })
             .getOne();
 

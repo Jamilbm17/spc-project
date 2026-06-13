@@ -8,6 +8,7 @@ import {
     X,
     GraduationCap,
     LayoutDashboard,
+    LibraryBig,
 } from 'lucide-react'
 import { useStudentAuth } from '@/providers/StudentAuthProvider'
 import { WarningDialog } from '@/components/common/WarningDialog'
@@ -18,8 +19,10 @@ import { PATHS } from '@/router/paths'
 
 const STUDENT_MENU = [
     { title: 'Inicio', url: PATHS.STUDENT.DASHBOARD, icon: LayoutDashboard },
+    { title: 'Cursos', url: PATHS.STUDENT.COURSES, icon: LibraryBig },
+    { title: 'Mis cursos', url: PATHS.STUDENT.MY_COURSES, icon: BookOpen },
     { title: 'Clases disponibles', url: PATHS.STUDENT.CALENDAR, icon: CalendarDays },
-    { title: 'Mis inscripciones', url: PATHS.STUDENT.MY_ENROLLMENTS, icon: BookOpen },
+    { title: 'Mis inscripciones', url: PATHS.STUDENT.MY_ENROLLMENTS, icon: GraduationCap },
 ]
 
 export function StudentLayout() {

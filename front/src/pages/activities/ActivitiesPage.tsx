@@ -1,9 +1,10 @@
 ﻿import { useState, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Plus, Pencil, Trash2, Building2, X } from 'lucide-react'
+import { Plus, Pencil, Trash2, Building2, X, ClipboardList } from 'lucide-react'
 import { toast } from 'sonner'
 import {
     activityService,
@@ -51,6 +52,7 @@ const statusVariant: Record<string, 'default' | 'success' | 'warning' | 'destruc
 
 export default function ActivitiesPage() {
     const queryClient = useQueryClient()
+    const navigate = useNavigate()
     const [search, setSearch] = useState('')
     const [filterInstitutionId, setFilterInstitutionId] = useState<number | undefined>()
     const [dialogOpen, setDialogOpen] = useState(false)
@@ -250,6 +252,15 @@ export default function ActivitiesPage() {
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex gap-1">
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                className="h-7 w-7"
+                                                title="Gestionar tareas"
+                                                onClick={() => navigate(`/activities/${activity.id}/tasks`)}
+                                            >
+                                                <ClipboardList className="h-3.5 w-3.5 text-primary" />
+                                            </Button>
                                             <Button
                                                 variant="ghost"
                                                 size="icon"

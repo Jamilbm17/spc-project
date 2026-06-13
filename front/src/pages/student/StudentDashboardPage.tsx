@@ -8,11 +8,14 @@ import {
     MapPin,
     Building2,
     ChevronRight,
+    LibraryBig,
+    FileText,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { studentApi } from '@/lib/api'
 import { type Activity, activityStatusLabels } from '@/services/activity.service'
 import { enrollmentService, type Enrollment } from '@/services/enrollment.service'
+import { courseStudentService, type Course, type Post } from '@/services/course.service'
 import { useStudentAuth } from '@/providers/StudentAuthProvider'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -33,14 +36,17 @@ export default function StudentDashboardPage() {
     const { data: upcomingActivities = [], isLoading: loadingActivities } = useQuery({
         queryKey: ['student-activities-upcoming'],
         queryFn: () =>
-            studentApi.get('/activities', {
-                params: { query: '' },
-            }) as Promise<Activity[]>,
+            studentApi.get('/activities', { params: { query: '' } }) as Promise<Activity[]>,
     })
 
     const { data: myEnrollments = [], isLoading: loadingEnrollments } = useQuery({
         queryKey: ['student-my-enrollments-dashboard'],
         queryFn: () => enrollmentService.findMy(),
+    })
+
+    const { data: myCourses = [], isLoading: loadingCourses } = useQuery({
+        queryKey: ['student-my-courses'],
+        queryFn: () => courseStudentService.findMyCourses(),
     })
 
     const today = new Date()
@@ -49,6 +55,61 @@ export default function StudentDashboardPage() {
         .slice(0, 5)
 
     const enrolledIds = new Set(myEnrollments.map((e: Enrollment) => e.activityId))
+
+    function renderMyCourses() {
+        if (loadingCourses) {
+            return (
+                <div className="grid sm:grid-cols-2 gap-3">
+                    {[1, 2].map((n) => <Skeleton key={n} className="h-24 rounded-lg" />)}
+                </div>
+            )
+        }
+        if (myCourses.length === 0) {
+            return (
+                <div className="text-center text-muted-foreground text-sm py-8 border rounded-lg">
+                    Aún no estás inscrito en ningún curso.{' '}
+                    <Link to={PATHS.STUDENT.COURSES} className="text-primary hover:underline">
+                        Explorar cursos
+                    </Link>
+                </div>
+            )
+        }
+        return (
+            <div className="grid sm:grid-cols-2 gap-3">
+                {(myCourses as (Course & { posts: Post[] })[]).slice(0, 4).map((course) => {
+                    const lastPost = course.posts?.[0]
+                    return (
+                        <Link
+                            key={course.id}
+                            to={`/student/courses/${course.id}`}
+                            className="border rounded-lg p-3 space-y-2 hover:bg-muted/50 transition-colors block"
+                        >
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <LibraryBig className="h-4 w-4 text-primary" />
+                                </div>
+                                <div className="min-w-0">
+                                    <p className="text-sm font-medium truncate">{course.title}</p>
+                                    <p className="text-xs text-muted-foreground truncate">
+                                        {course.teacher?.name}
+                                    </p>
+                                </div>
+                                <Badge variant="outline" className="ml-auto text-xs flex-shrink-0">
+                                    {course.posts?.length ?? 0}
+                                </Badge>
+                            </div>
+                            {lastPost && (
+                                <div className="flex items-center gap-1.5 text-xs text-muted-foreground pl-10">
+                                    <FileText className="h-3 w-3 flex-shrink-0" />
+                                    <span className="truncate">{lastPost.title}</span>
+                                </div>
+                            )}
+                        </Link>
+                    )
+                })}
+            </div>
+        )
+    }
 
     return (
         <section className="p-4 lg:p-6 space-y-6">
@@ -59,7 +120,11 @@ export default function StudentDashboardPage() {
                 </p>
                 <h1 className="text-2xl font-bold">¡Hola, {student?.name?.split(' ')[0]}! 👋</h1>
                 <p className="text-sm opacity-80 mt-1">Bienvenido al portal estudiantil del SPC.</p>
-                <div className="flex gap-4 mt-4">
+                <div className="flex flex-wrap gap-3 mt-4">
+                    <div className="bg-white/20 rounded-lg px-4 py-2 text-center">
+                        <p className="text-2xl font-bold">{myCourses.length}</p>
+                        <p className="text-xs opacity-80">Cursos</p>
+                    </div>
                     <div className="bg-white/20 rounded-lg px-4 py-2 text-center">
                         <p className="text-2xl font-bold">{myEnrollments.length}</p>
                         <p className="text-xs opacity-80">Inscripciones</p>
@@ -69,6 +134,23 @@ export default function StudentDashboardPage() {
                         <p className="text-xs opacity-80">Clases próximas</p>
                     </div>
                 </div>
+            </div>
+
+            {/* Mis cursos (Blackboard) */}
+            <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                    <h2 className="text-base font-semibold flex items-center gap-2">
+                        <LibraryBig className="h-4 w-4 text-primary" />
+                        Mis cursos
+                    </h2>
+                    <Button variant="ghost" size="sm" asChild>
+                        <Link to={PATHS.STUDENT.MY_COURSES} className="flex items-center gap-1 text-xs text-primary">
+                            Ver todos <ChevronRight className="h-3 w-3" />
+                        </Link>
+                    </Button>
+                </div>
+
+                {renderMyCourses()}
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">

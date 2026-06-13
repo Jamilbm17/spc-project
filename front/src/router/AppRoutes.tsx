@@ -15,11 +15,20 @@ import CalendarPage from '@/pages/calendar/CalendarPage'
 import EnrollmentsAdminPage from '@/pages/enrollments/EnrollmentsAdminPage'
 import StudentsAdminPage from '@/pages/students/StudentsAdminPage'
 
+// Admin course pages
+import CoursesPage from '@/pages/courses/CoursesPage'
+import CourseDetailPage from '@/pages/courses/CourseDetailPage'
+import ActivityTasksPage from '@/pages/activities/ActivityTasksPage'
+
 // Student pages
 import StudentLoginPage from '@/pages/login/StudentLoginPage'
 import StudentDashboardPage from '@/pages/student/StudentDashboardPage'
 import StudentCalendarPage from '@/pages/student/StudentCalendarPage'
 import StudentMyEnrollmentsPage from '@/pages/student/StudentMyEnrollmentsPage'
+import StudentCoursesPage from '@/pages/student/StudentCoursesPage'
+import StudentCourseDetailPage from '@/pages/student/StudentCourseDetailPage'
+import StudentMyCoursesPage from '@/pages/student/StudentMyCoursesPage'
+import StudentTaskDetailPage from '@/pages/student/StudentTaskDetailPage'
 
 export function AppRoutes() {
     return (
@@ -41,13 +50,20 @@ export function AppRoutes() {
                     <Route path={PATHS.STUDENT.DASHBOARD} element={<StudentDashboardPage />} />
                     <Route path={PATHS.STUDENT.CALENDAR} element={<StudentCalendarPage />} />
                     <Route path={PATHS.STUDENT.MY_ENROLLMENTS} element={<StudentMyEnrollmentsPage />} />
+                    <Route path={PATHS.STUDENT.COURSES} element={<StudentCoursesPage />} />
+                    <Route path={PATHS.STUDENT.COURSE_DETAIL} element={<StudentCourseDetailPage />} />
+                    <Route path={PATHS.STUDENT.MY_COURSES} element={<StudentMyCoursesPage />} />
+                    <Route path={PATHS.STUDENT.TASK_DETAIL} element={<StudentTaskDetailPage />} />
                 </Route>
             </Route>
 
             {/* ── Admin portal (protected by AuthProvider in App.tsx) ── */}
             <Route element={<AppLayout />}>
-                <Route path={PATHS.INDEX} element={<Navigate to={PATHS.ACTIVITIES.INDEX} replace />} />
+                <Route path={PATHS.INDEX} element={<Navigate to={PATHS.COURSES.INDEX} replace />} />
+                <Route path={PATHS.COURSES.INDEX} element={<CoursesPage />} />
+                <Route path={PATHS.COURSES.DETAIL} element={<CourseDetailPage />} />
                 <Route path={PATHS.ACTIVITIES.INDEX} element={<ActivitiesPage />} />
+                <Route path={PATHS.ACTIVITIES.TASKS} element={<ActivityTasksPage />} />
                 <Route path={PATHS.INSTITUTIONS.INDEX} element={<InstitutionsPage />} />
                 <Route path={PATHS.PARTICIPANTS.INDEX} element={<ParticipantsPage />} />
                 <Route path={PATHS.TOPICS.INDEX} element={<TopicsPage />} />
