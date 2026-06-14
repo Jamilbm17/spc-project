@@ -166,7 +166,7 @@ export default function ActivityTasksPage() {
                     type: draft.type,
                     options: draft.type !== 'OPEN_TEXT' ? draft.options.filter(Boolean) : null,
                     correctOptionIndex: draft.type === 'MULTIPLE_CHOICE' ? draft.correctOptionIndex : null,
-                    points: draft.points ?? undefined,
+                    points: draft.points ?? null,
                     order: idx,
                 })
             }
@@ -201,7 +201,7 @@ export default function ActivityTasksPage() {
                 type: data.type,
                 options: data.type !== 'OPEN_TEXT' ? (data.options ?? []).map((o) => o.value).filter(Boolean) : null,
                 correctOptionIndex: data.type === 'MULTIPLE_CHOICE' ? (data.correctOptionIndex ?? null) : null,
-                points: data.points === '' ? undefined : Number(data.points || 0) || undefined,
+                points: data.points === '' ? null : Number(data.points || 0) || null,
                 order: 0,
             }),
         onSuccess: () => { invalidateDetail(); toast.success('Pregunta añadida'); closeQuestionDialog() },
@@ -215,7 +215,7 @@ export default function ActivityTasksPage() {
                 type: data.type,
                 options: data.type !== 'OPEN_TEXT' ? (data.options ?? []).map((o) => o.value).filter(Boolean) : null,
                 correctOptionIndex: data.type === 'MULTIPLE_CHOICE' ? (data.correctOptionIndex ?? null) : null,
-                points: data.points === '' ? undefined : Number(data.points || 0) || undefined,
+                points: data.points === '' ? null : Number(data.points || 0) || null,
                 order: editingQuestion?.order ?? 0,
             }),
         onSuccess: () => { invalidateDetail(); toast.success('Pregunta actualizada'); closeQuestionDialog() },

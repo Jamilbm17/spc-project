@@ -90,7 +90,7 @@ export default function StudentLoginPage() {
                 lastName: values.lastName,
                 email: values.email,
                 password: values.password,
-                dni: values.dni,
+                dni: values.dni ?? '',
                 institutionName: values.institutionName,
                 phone: values.phone || undefined,
                 grade: values.grade || undefined,

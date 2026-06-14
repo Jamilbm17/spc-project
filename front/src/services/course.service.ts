@@ -53,6 +53,7 @@ export interface CourseEnrollment {
     courseId: number
     course: Course
     enrolledAt: string
+    student?: { id: number; firstName: string; lastName: string; email: string }
 }
 
 export interface StudentAnswer {

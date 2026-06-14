@@ -199,7 +199,7 @@ export default function StudentTaskDetailPage() {
                                 {post.maxScore} puntos
                             </Badge>
                         )}
-                        {renderSubmissionBadge(submitted, sub, post.maxScore)}
+                        {renderSubmissionBadge(submitted, sub ?? null, post.maxScore)}
                     </div>
                 </div>
             </div>
