@@ -1,7 +1,15 @@
 import axios from 'axios'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? ''
+
+export const resolveUploadUrl = (path: string | null | undefined): string | undefined => {
+    if (!path) return undefined
+    if (path.startsWith('http')) return path
+    return `${API_BASE}${path}`
+}
+
 export const api = axios.create({
-    baseURL: '/api',
+    baseURL: `${API_BASE}/api`,
 })
 
 api.interceptors.request.use((config) => {
@@ -27,7 +35,7 @@ api.interceptors.response.use(
 
 // Separate axios instance for student API calls
 export const studentApi = axios.create({
-    baseURL: '/api',
+    baseURL: `${API_BASE}/api`,
 })
 
 studentApi.interceptors.request.use((config) => {

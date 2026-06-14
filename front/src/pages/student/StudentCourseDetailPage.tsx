@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { resolveUploadUrl } from '@/lib/api'
 import { toast } from 'sonner'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
@@ -92,7 +93,7 @@ export default function StudentCourseDetailPage() {
                         {post.imageUrl && (
                             <div className="h-52 overflow-hidden">
                                 <img
-                                    src={post.imageUrl}
+                                    src={resolveUploadUrl(post.imageUrl)}
                                     alt={post.title}
                                     className="w-full h-full object-cover"
                                     onError={(e) => {
@@ -210,7 +211,7 @@ export default function StudentCourseDetailPage() {
             {course.imageUrl && (
                 <div className="h-48 rounded-xl overflow-hidden">
                     <img
-                        src={course.imageUrl}
+                        src={resolveUploadUrl(course.imageUrl)}
                         alt={course.title}
                         className="w-full h-full object-cover"
                         onError={(e) => {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { resolveUploadUrl } from '@/lib/api'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { format } from 'date-fns'
@@ -207,7 +208,7 @@ export default function StudentTaskDetailPage() {
             {/* Cover image */}
             {post.imageUrl && (
                 <div className="rounded-xl overflow-hidden">
-                    <img src={post.imageUrl} alt={post.title} className="w-full max-h-64 object-cover" />
+                    <img src={resolveUploadUrl(post.imageUrl)} alt={post.title} className="w-full max-h-64 object-cover" />
                 </div>
             )}
 

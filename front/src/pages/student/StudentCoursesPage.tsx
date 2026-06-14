@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { resolveUploadUrl } from '@/lib/api'
 import { toast } from 'sonner'
 import { Search, BookOpen, Users, ChevronRight, CheckCircle2 } from 'lucide-react'
 import { courseStudentService, type Course } from '@/services/course.service'
@@ -93,7 +94,7 @@ export default function StudentCoursesPage() {
                                 <div className="h-32 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative">
                                     {course.imageUrl ? (
                                         <img
-                                            src={course.imageUrl}
+                                            src={resolveUploadUrl(course.imageUrl)}
                                             alt={course.title}
                                             className="w-full h-full object-cover"
                                             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}

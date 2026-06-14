@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { resolveUploadUrl } from '@/lib/api'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -181,7 +182,7 @@ export default function CoursesPage() {
                             <div className="h-28 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative">
                                 {course.imageUrl ? (
                                     <img
-                                        src={course.imageUrl}
+                                        src={resolveUploadUrl(course.imageUrl)}
                                         alt={course.title}
                                         className="w-full h-full object-cover"
                                     />

@@ -26,7 +26,7 @@ import {
     FileText,
     Image,
 } from 'lucide-react'
-import { studentApi } from '@/lib/api'
+import { studentApi, resolveUploadUrl } from '@/lib/api'
 import { type Activity, activityStatusLabels } from '@/services/activity.service'
 import { enrollmentService } from '@/services/enrollment.service'
 import { courseStudentService, type Post } from '@/services/course.service'
@@ -256,7 +256,7 @@ export default function StudentCalendarPage() {
                 {activityPosts.map((post: Post) => (
                     <div key={post.id} className="rounded-lg border bg-muted/30 overflow-hidden">
                         {post.imageUrl && (
-                            <img src={post.imageUrl} alt={post.title} className="w-full h-24 object-cover" />
+                            <img src={resolveUploadUrl(post.imageUrl)} alt={post.title} className="w-full h-24 object-cover" />
                         )}
                         <div className="p-3 space-y-1.5">
                             <div className="flex items-start justify-between gap-1">

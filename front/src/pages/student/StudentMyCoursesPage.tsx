@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { resolveUploadUrl } from '@/lib/api'
 import { toast } from 'sonner'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
@@ -67,7 +68,7 @@ export default function StudentMyCoursesPage() {
                                 <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center flex-shrink-0 overflow-hidden">
                                     {course.imageUrl ? (
                                         <img
-                                            src={course.imageUrl}
+                                            src={resolveUploadUrl(course.imageUrl)}
                                             alt={course.title}
                                             className="w-full h-full object-cover"
                                             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}

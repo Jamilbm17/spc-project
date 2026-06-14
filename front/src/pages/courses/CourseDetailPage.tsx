@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { resolveUploadUrl } from '@/lib/api'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm, Controller, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -476,7 +477,7 @@ export default function CourseDetailPage() {
                                 <div key={post.id} className="border rounded-xl overflow-hidden bg-card">
                                     {post.imageUrl && (
                                         <div className="h-40 overflow-hidden">
-                                            <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover" />
+                                            <img src={resolveUploadUrl(post.imageUrl)} alt={post.title} className="w-full h-full object-cover" />
                                         </div>
                                     )}
                                     <div className="p-4 space-y-2">
