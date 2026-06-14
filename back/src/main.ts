@@ -13,7 +13,11 @@ async function bootstrap() {
     app.useStaticAssets(uploadsDir, { prefix: '/uploads' });
 
     app.enableCors({
-        origin: ['http://localhost:5173', 'http://localhost:3000'],
+        origin: [
+            'http://localhost:5173',
+            'http://localhost:3000',
+            'https://spc.ascentcreate.com',
+        ],
         credentials: true,
     });
 
